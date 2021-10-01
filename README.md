@@ -2,7 +2,7 @@
 
 # Supported tags and respective Dockerfile links
 
- - [2021.1.9](https://github.com/dalmatialab/dask/blob/eb68241f7d6dd8a64d5d4c746dc7d81740df87af/Dockerfile)
+ - [2021.9.1](https://github.com/dalmatialab/dask/blob/eb68241f7d6dd8a64d5d4c746dc7d81740df87af/Dockerfile)
 
 # What is Dask ? 
 
