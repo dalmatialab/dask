@@ -6,7 +6,7 @@ This repo contains Dask Helm chart for deploying on Kubernetes.
 
 Nodes where Dask worker components needs to be deployed must be labeled. To label node use:
 
-    $ kubectl label nodes daskworker=true
+    $ kubectl label nodes node-list daskworker=true
 
 Where:
 
