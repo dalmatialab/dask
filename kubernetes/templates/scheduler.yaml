@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dask-scheduler-deployment
+spec:
+  replicas: {{ .Values.scheduler.replicas }}
+  selector:
+    matchLabels:
+      component: scheduler
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: scheduler
+    spec:
+      containers:
+        - name: dask-scheduler
+          image: "{{ .Values.scheduler.image.name }}:{{ .Values.scheduler.image.tag }}"
+          imagePullPolicy: {{ .Values.scheduler.image.pullPolicy }}
+          args:
+            - dask-scheduler
+            - --port
+            - "8786"
+            - --bokeh-port
+            - "8787"
+          ports:
+            - containerPort: 8786
+            - containerPort: 8787
+          env:
+            {{- toYaml .Values.scheduler.env | nindent 12 }}
+    {{- with .Values.scheduler.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.scheduler.serviceName }}
+spec:
+  ports:
+    - name: dask-scheduler
+      port: 8786
+      targetPort: 8786
+    - name: dask-webui
+      port: 80
+      targetPort: 8787
+  selector:
+    component: scheduler
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dask-scheduler-external
+spec:
+  ports:
+    - name: dask-scheduler-ext
+      port: 8786
+      targetPort: 8786
+      nodePort: {{ .Values.scheduler.nodePort }}
+    - name: dask-webui-ext
+      port: 80
+      targetPort: 8787
+      nodePort: {{ .Values.scheduler.webui.nodePort }}
+  selector:
+    component: scheduler
+  type: NodePort
