@@ -10,7 +10,7 @@
  - Dynamic task scheduling optimized for computation. This is similar to Airflow, Luigi, Celery, or Make, but optimized for interactive computational workloads.
  - Big Data collections like parallel arrays, dataframes, and lists that extend common interfaces like NumPy, Pandas, or Python iterators to larger-than-memory or distributed environments. These parallel collections run on top of dynamic task schedulers.
 
-<img src="./logo.png" width="400" height="130">
+<img src="https://github.com/dalmatialab/dask/blob/a890f4d08a4c4fe9617fa363b774d88f9e37764e/logo.png?raw=true" width="400" height="130">
 
 # How to use this image
 
